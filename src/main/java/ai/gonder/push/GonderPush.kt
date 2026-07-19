@@ -2,6 +2,8 @@ package ai.gonder.push
 
 import android.Manifest
 import android.app.Activity
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
@@ -47,7 +49,7 @@ object GonderPush {
     private var appId: String? = null
 
     @Volatile
-    private var baseUrl: String = "https://gonder.ai"
+    private var baseUrl: String = "https://staging.gonder.ai"
 
     @Volatile
     private var externalId: String? = null
@@ -73,10 +75,29 @@ object GonderPush {
         externalId = prefs(app).getString(KEY_EXTERNAL_ID, null)
         deviceToken = prefs(app).getString(KEY_DEVICE_TOKEN, null)
 
+        ensureNotificationChannel(app)
         debugLog("Initialized appId=$appId baseUrl=${this.baseUrl}")
 
         // Re-register if we already have a token (e.g. App ID changed).
         deviceToken?.let { sendRegistration(it) }
+    }
+
+    private fun ensureNotificationChannel(context: Context) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) return
+        val manager =
+            context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        if (manager.getNotificationChannel(GonderPushMessagingService.CHANNEL_ID) != null) {
+            return
+        }
+        val channel = NotificationChannel(
+            GonderPushMessagingService.CHANNEL_ID,
+            "Gönder Push",
+            NotificationManager.IMPORTANCE_HIGH
+        ).apply {
+            description = "Push notifications from Gönder"
+            enableVibration(true)
+        }
+        manager.createNotificationChannel(channel)
     }
 
     /**

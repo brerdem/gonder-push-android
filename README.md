@@ -27,7 +27,7 @@ dependencyResolutionManagement {
 
 ```groovy
 dependencies {
-  implementation 'com.github.brerdem:gonder-push-android:0.1.0'
+  implementation 'com.github.brerdem:gonder-push-android:0.1.1'
 }
 ```
 
