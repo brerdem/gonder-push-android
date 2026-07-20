@@ -12,5 +12,13 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
+        <receiver
+            android:name="ai.gonder.push.GonderPushOpenReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="ai.gonder.push.OPEN_NOTIFICATION" />
+            </intent-filter>
+        </receiver>
     </application>
 </manifest>

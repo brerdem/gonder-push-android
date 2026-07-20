@@ -27,7 +27,7 @@ dependencyResolutionManagement {
 
 ```groovy
 dependencies {
-  implementation 'com.github.brerdem:gonder-push-android:0.1.1'
+  implementation 'com.github.brerdem:gonder-push-android:0.2.0'
 }
 ```
 
@@ -49,17 +49,27 @@ class MyApp : Application() {
 }
 ```
 
-### Identify users
+### Listeners
 
 ```kotlin
-GonderPush.setExternalId("crm-user-123")
-GonderPush.removeExternalId()
+GonderPush.addClickListener { n -> /* deep link using n.url / n.campaignId */ }
+GonderPush.addForegroundLifecycleListener { true } // return false to suppress
+GonderPush.addPermissionObserver { granted -> }
+GonderPush.addSubscriptionObserver { state -> }
+
+// Also call from Activity.onCreate / onNewIntent for system-tray opens:
+GonderPush.handleIntent(intent)
 ```
 
-### Unsubscribe
+### Identify / mute / tags
 
 ```kotlin
-GonderPush.unsubscribe()
+GonderPush.login("crm-user-123") // or setExternalId
+GonderPush.addTag("plan", "pro")
+GonderPush.optOut() // soft mute
+GonderPush.optIn()
+GonderPush.logout()
+GonderPush.unsubscribe() // hard unsubscribe
 ```
 
 ## Publish (maintainers)
