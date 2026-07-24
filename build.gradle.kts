@@ -4,7 +4,7 @@ plugins {
     id("maven-publish")
 }
 
-group = "com.github.brerdem"
+group = "com.github.Gonder-AI"
 version = "0.2.0"
 
 android {
@@ -53,7 +53,7 @@ afterEvaluate {
         publications {
             create<MavenPublication>("release") {
                 from(components["release"])
-                groupId = "com.github.brerdem"
+                groupId = "com.github.Gonder-AI"
                 artifactId = "gonder-push-android"
                 version = project.version.toString()
             }

@@ -27,7 +27,7 @@ dependencyResolutionManagement {
 
 ```groovy
 dependencies {
-  implementation 'com.github.brerdem:gonder-push-android:0.2.0'
+  implementation 'com.github.Gonder-AI:gonder-push-android:0.2.0'
 }
 ```
 
@@ -74,9 +74,9 @@ GonderPush.unsubscribe() // hard unsubscribe
 
 ## Publish (maintainers)
 
-1. Push this package to `https://github.com/brerdem/gonder-push-android`
+1. Push this package to `https://github.com/Gonder-AI/gonder-push-android`
 2. Tag a version: `git tag 0.1.0 && git push --tags`
-3. JitPack builds from the tag — verify at `https://jitpack.io/#brerdem/gonder-push-android`
+3. JitPack builds from the tag — verify at `https://jitpack.io/#Gonder-AI/gonder-push-android`
 
 ## Test app
 
